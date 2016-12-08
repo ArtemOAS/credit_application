@@ -1,18 +1,13 @@
 package com.entity.tags;
 
-import org.springframework.stereotype.Component;
+import com.google.gson.Gson;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@Component
 @Entity
 @Table(name = "customer_data")
 @NamedQuery(name = "Customer.getdAll", query = "select c FROM customer_data c")
-@XmlRootElement(name = "customer")
 public class Customer implements Serializable {
 
     @Id
@@ -36,12 +31,10 @@ public class Customer implements Serializable {
 
     public Customer() {}
 
-    @XmlAttribute(name = "id")
     public long getId() {
         return id;
     }
 
-    @XmlElement(name = "firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -50,7 +43,6 @@ public class Customer implements Serializable {
         this.firstName = firstName;
     }
 
-    @XmlElement(name = "patronymic")
     public String getPatronymic() {
         return patronymic;
     }
@@ -59,12 +51,16 @@ public class Customer implements Serializable {
         this.patronymic = patronymic;
     }
 
-    @XmlElement(name = "lastName")
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(Customer.class);
     }
 }

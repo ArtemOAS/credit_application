@@ -1,6 +1,7 @@
 package com.service;
 
-import com.business_logic.impl.CustomerDataBaseImpl;
+import com.dao.CustomerDataBase;
+import com.dao.impl.CustomerDataBaseImpl;
 import com.entity.Data;
 import com.entity.tags.Customer;
 import com.utils.FillerEntity;
@@ -15,21 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
-public class CustomerService {
-    private static final Logger LOGGER = Logger.getLogger(CustomerService.class);
+public class CustomerController {
+    private static final Logger LOGGER = Logger.getLogger(CustomerController.class);
 
     @Autowired
-    JaxbUtils jaxbUtils;
-
-    @Autowired
-    FillerEntity fillerEntity;
-
-    @Autowired
-    CustomerDataBaseImpl customerDataBase;
-
-    @Autowired
-    Customer customer;
-
+    CustomerDataBase customerDataBase ;
 
     @RequestMapping("/save_data/")
     @ResponseBody
@@ -40,13 +31,11 @@ public class CustomerService {
         String customerData = null;
         try {
             customerDataBase.addCustomer(new Customer(firstName, lastName, patronymic));
-            customerData = jaxbUtils.objectToXml(
-                    fillerEntity.fillCustomerData(
-                            fillerEntity.fillCustomerData(firstName, lastName, patronymic)), Data.class);
+            customerData = FillerEntity.fillCustomerData(FillerEntity.fillCustomerData(firstName, lastName, patronymic)).toString();
             return customerData;
         } catch (Exception e) {
-            LOGGER.info(customerData, e);
-            return customerData;
+            LOGGER.info(e);
         }
+        return customerData;
     }
 }

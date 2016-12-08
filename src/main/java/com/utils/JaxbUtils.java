@@ -9,10 +9,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-@Component
 public class JaxbUtils {
 
-    public String objectToXml(Object object, Class className) throws JAXBException {
+    public static String objectToXml(Object object, Class className) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(className);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -21,7 +20,7 @@ public class JaxbUtils {
         return stringWriter.toString();
     }
 
-    public Object xmlToObject(String xml, Class className) throws JAXBException {
+    public static Object xmlToObject(String xml, Class className) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(className);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         return unmarshaller.unmarshal(new StringReader(xml));

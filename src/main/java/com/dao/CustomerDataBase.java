@@ -1,4 +1,4 @@
-package com.business_logic;
+package com.dao;
 
 import com.entity.tags.Customer;
 

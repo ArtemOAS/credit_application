@@ -8,21 +8,19 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class FillerEntity {
 
-    @Autowired
-    private Customer customer;
+    private static Customer customer = new Customer();
 
     @Autowired
-    Data data;
+    private static Data data;
 
-    public Data fillCustomerData(List<Customer> customerList){
+    public static Data fillCustomerData(List<Customer> customerList){
         data.setCustomer(customerList);
         return data;
     }
 
-    public List<Customer> fillCustomerData(String firstName, String lastName, String patronymic){
+    public static List<Customer> fillCustomerData(String firstName, String lastName, String patronymic){
         List<Customer> customerList = new ArrayList<>();
         customer.setFirstName(firstName);
         customer.setLastName(lastName);

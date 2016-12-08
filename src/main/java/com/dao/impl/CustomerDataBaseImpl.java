@@ -1,18 +1,21 @@
-package com.business_logic.impl;
+package com.dao.impl;
 
-import com.business_logic.CustomerDataBase;
+import com.dao.CustomerDataBase;
 import com.entity.tags.Customer;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Component
+@Repository
+@Transactional
 public class CustomerDataBaseImpl implements CustomerDataBase {
-    private final EntityManager entityManager = Persistence.createEntityManagerFactory("JPA").createEntityManager();
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Customer addCustomer(Customer customer) {
